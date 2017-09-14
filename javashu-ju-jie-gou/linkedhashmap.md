@@ -27,5 +27,21 @@ transient LinkedHashMap.Entry<K,V> head;  //最久或者最先插入的节点
 transient LinkedHashMap.Entry<K,V> tail;  //最新或者最近访问的节点
 ```
 
+* 可以根据参数指定插入列表的顺序
+
+```java
+/**
+  * The iteration ordering method for this linked hash map: <tt>true</tt>
+  * for access-order, <tt>false</tt> for insertion-order.
+  *
+  * @serial
+  */
+ final boolean accessOrder;
+ 
+ 按照字面意思就可以理解，是否按照访问顺序操作！也就是，若果值为true，那么在put一个新key的value时候，除了将其添加到hash位置中，
+ 还需要将其插入（移动）到列表的尾部！
+```
+
+* * 
 
 
