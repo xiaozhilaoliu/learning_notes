@@ -8,8 +8,6 @@
 * 同样不是线程安全的
 * **区别是其内部维护了一个双向循环链表，该链表是有序的，可以按元素插入顺序或元素最近访问顺序\(LRU\)排列**
 
-
-
 ```java
 static class Entry<K,V> extends HashMap.Node<K,V> {
     Entry<K,V> before, after;     //注意，很明显这里的每个节点，都有一个前驱和后驱
@@ -17,6 +15,16 @@ static class Entry<K,V> extends HashMap.Node<K,V> {
         super(hash, key, value, next);
     }
 }
+
+/**
+ * The head (eldest) of the doubly linked list.
+ */
+transient LinkedHashMap.Entry<K,V> head;
+
+/**
+ * The tail (youngest) of the doubly linked list.
+ */
+transient LinkedHashMap.Entry<K,V> tail;
 ```
 
 
