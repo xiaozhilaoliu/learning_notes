@@ -19,12 +19,12 @@ static class Entry<K,V> extends HashMap.Node<K,V> {
 /**
  * The head (eldest) of the doubly linked list.
  */
-transient LinkedHashMap.Entry<K,V> head;
+transient LinkedHashMap.Entry<K,V> head;  //最久或者最先插入的节点
 
 /**
  * The tail (youngest) of the doubly linked list.
  */
-transient LinkedHashMap.Entry<K,V> tail;
+transient LinkedHashMap.Entry<K,V> tail;  //最新或者最近访问的节点
 ```
 
 
