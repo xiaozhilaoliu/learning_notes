@@ -52,6 +52,33 @@ private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
 
  按照字面意思就可以理解，是否按照访问顺序操作！也就是，若果值为true，那么在put一个新key的value时候，除了将其添加到hash位置中，
  还需要将其插入（移动）到列表的尾部！
+ 
+ 
+ //当节点被操作过后，将节点移动尾部
+ void afterNodeAccess(Node<K,V> e) { // move node to last
+    LinkedHashMap.Entry<K,V> last;
+    if (accessOrder && (last = tail) != e) {
+        LinkedHashMap.Entry<K,V> p =
+            (LinkedHashMap.Entry<K,V>)e, b = p.before, a = p.after;
+        p.after = null;
+        if (b == null)
+            head = a;
+        else
+            b.after = a;
+        if (a != null)
+            a.before = b;
+        else
+            last = b;
+        if (last == null)
+            head = p;
+        else {
+            p.before = last;
+            last.after = p;
+        }
+        tail = p;
+        ++modCount;
+    }
+}
 ```
 
 * 
