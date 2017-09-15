@@ -33,7 +33,7 @@ private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
     if (last == null)
         head = p;      //如果头结点为空，设置head=tail=p
     else {
-        p.before = last;
+        p.before = last;  //如果已经有节点，那么将新节点插入当前列表的尾部，并且tail变为新加入的节点
         last.after = p;
     }
 }
