@@ -25,6 +25,18 @@ transient LinkedHashMap.Entry<K,V> head;  //最久或者最先插入的节点
  * The tail (youngest) of the doubly linked list.
  */
 transient LinkedHashMap.Entry<K,V> tail;  //最新或者最近访问的节点
+
+// link at the end of list
+private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
+    LinkedHashMap.Entry<K,V> last = tail;
+    tail = p;
+    if (last == null)
+        head = p;      //如果头结点为空，设置head=tail=p
+    else {
+        p.before = last;
+        last.after = p;
+    }
+}
 ```
 
 * 可以根据参数指定插入列表的顺序
