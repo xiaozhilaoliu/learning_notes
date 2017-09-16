@@ -8,6 +8,8 @@
 * 同样不是线程安全的
 * **区别是其内部维护了一个双向循环链表，该链表是有序的，可以按元素插入顺序或元素最近访问顺序\(LRU\)排列**
 
+## 三、源码解析
+
 ```java
 static class Entry<K,V> extends HashMap.Node<K,V> {
     Entry<K,V> before, after;     //注意，很明显这里的每个节点，都有一个前驱和后驱
@@ -52,8 +54,8 @@ private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
 
  按照字面意思就可以理解，是否按照访问顺序操作！也就是，若果值为true，那么在put一个新key的value时候，除了将其添加到hash位置中，
  还需要将其插入（移动）到列表的尾部！
- 
- 
+
+
  //当节点被操作过后，将节点移动尾部
  void afterNodeAccess(Node<K,V> e) { // move node to last
     LinkedHashMap.Entry<K,V> last;
