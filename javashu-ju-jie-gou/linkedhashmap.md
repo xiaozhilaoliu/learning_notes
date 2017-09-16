@@ -10,6 +10,8 @@
 
 ## 三、源码解析
 
+1. 有连个列表节点，head、tail；tail指向最后一个节点，head指向头结点！
+
 ```java
 static class Entry<K,V> extends HashMap.Node<K,V> {
     Entry<K,V> before, after;     //注意，很明显这里的每个节点，都有一个前驱和后驱
