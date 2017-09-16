@@ -41,7 +41,7 @@ private void linkNodeLast(LinkedHashMap.Entry<K,V> p) {
 }
 ```
 
-* 可以根据参数指定插入列表的顺序
+* 可以根据参数指定列表的排序
 
 ```java
 /**
