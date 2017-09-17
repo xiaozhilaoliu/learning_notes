@@ -17,5 +17,9 @@ public class LinkedList<E>
     implements List<E>, Deque<E>, Cloneable, java.io.Serializable
 ```
 
-实现AbstractSequentialList，支持队列的操作；实现Deque接口，支持双端队列的操作
+### 2、代码解析
+
+实现AbstractSequentialList，支持队列的操作；
+
+实现Deque接口，支持双端队列的操作
 
