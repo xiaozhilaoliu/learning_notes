@@ -116,6 +116,7 @@ private void linkFirst(E e) {
 public void addLast(E e) {
     linkLast(e);
 }
+
 /**
  * Links e as last element.
  */
