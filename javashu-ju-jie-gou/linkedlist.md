@@ -72,7 +72,8 @@ private static class Node<E> {
 #### 代码解析
 
 ```auto
-1、这个类是LinkedList的一个静态内部类
+1、这个类是LinkedList的一个静态内部类;
+2、这个类有一个前驱，也有后驱，是一个双向列表
 ```
 
 
