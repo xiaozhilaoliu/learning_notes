@@ -17,11 +17,38 @@ public class LinkedList<E>
     implements List<E>, Deque<E>, Cloneable, java.io.Serializable
 ```
 
+```java
+/**
+ * Returns a shallow copy of this {@code LinkedList}. (The elements
+ * themselves are not cloned.)
+ *
+ * @return a shallow copy of this {@code LinkedList} instance
+ */
+public Object clone() {
+    LinkedList<E> clone = superClone();
+
+    // Put clone into "virgin" state
+    clone.first = clone.last = null;
+    clone.size = 0;
+    clone.modCount = 0;
+
+    // Initialize clone with our elements
+    for (Node<E> x = first; x != null; x = x.next)
+        clone.add(x.item);
+
+    return clone;
+}
+```
+
 ### 2、代码解析
 
 ```
-实现AbstractSequentialList，支持队列的操作；实现Deque接口，支持双端队列的操作
+1、实现AbstractSequentialList，支持队列的操作；
+2、实现Deque接口，支持双端队列的操作
+3、实现Cloneable支持，支持clone操作
 ```
+
+
 
 
 
