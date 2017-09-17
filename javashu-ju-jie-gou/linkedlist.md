@@ -92,6 +92,21 @@ public void addFirst(E e) {
 }
 
 /**
+ * Links e as first element.
+ */
+private void linkFirst(E e) {
+    final Node<E> f = first;
+    final Node<E> newNode = new Node<>(null, e, f);
+    first = newNode;
+    if (f == null)
+        last = newNode;
+    else
+        f.prev = newNode;
+    size++;
+    modCount++;
+}
+
+/**
  * Appends the specified element to the end of this list.
  *
  * <p>This method is equivalent to {@link #add}.
@@ -100,6 +115,20 @@ public void addFirst(E e) {
  */
 public void addLast(E e) {
     linkLast(e);
+}
+/**
+ * Links e as last element.
+ */
+void linkLast(E e) {
+    final Node<E> l = last;
+    final Node<E> newNode = new Node<>(l, e, null);
+    last = newNode;
+    if (l == null)
+        first = newNode;
+    else
+        l.next = newNode;
+    size++;
+    modCount++;
 }
 ```
 
