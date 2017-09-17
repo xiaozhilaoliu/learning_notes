@@ -51,7 +51,29 @@ public Object clone() {
 4、实现Serializable，支持序列化的操作！
 ```
 
+### 2、节点数据结构
 
+#### 代码片段
+
+```java
+private static class Node<E> {
+    E item;
+    Node<E> next;
+    Node<E> prev;
+
+    Node(Node<E> prev, E element, Node<E> next) {
+        this.item = element;
+        this.next = next;
+        this.prev = prev;
+    }
+}
+```
+
+#### 代码解析
+
+```auto
+1、这个类是LinkedList的一个静态内部类
+```
 
 
 
