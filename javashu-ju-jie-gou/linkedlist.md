@@ -79,5 +79,29 @@ private static class Node<E> {
 
 ### 3、数据元素操作
 
+#### 代码片段
+
+```java
+/**
+ * Inserts the specified element at the beginning of this list.
+ *
+ * @param e the element to add
+ */
+public void addFirst(E e) {
+    linkFirst(e);
+}
+
+/**
+ * Appends the specified element to the end of this list.
+ *
+ * <p>This method is equivalent to {@link #add}.
+ *
+ * @param e the element to add
+ */
+public void addLast(E e) {
+    linkLast(e);
+}
+```
+
 
 
