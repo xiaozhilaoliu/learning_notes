@@ -11,6 +11,8 @@ LinkedList是一个继承于AbstractSequentialList的双向列表；它也可以
 
 ### 1、类的继承关系
 
+* 代码片段一
+
 ```java
 public class LinkedList<E>
     extends AbstractSequentialList<E>
@@ -45,10 +47,8 @@ public Object clone() {
 ```
 1、实现AbstractSequentialList，支持队列的操作；
 2、实现Deque接口，支持双端队列的操作
-3、实现Cloneable支持，支持clone操作
+3、实现Cloneable支持，支持clone操作;
 ```
-
-
 
 
 
