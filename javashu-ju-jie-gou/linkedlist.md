@@ -131,6 +131,203 @@ void linkLast(E e) {
     size++;
     modCount++;
 }
+
+/**
+ * Inserts the specified element at the specified position in this list.
+ * Shifts the element currently at that position (if any) and any
+ * subsequent elements to the right (adds one to their indices).
+ *
+ * @param index index at which the specified element is to be inserted
+ * @param element element to be inserted
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public void add(int index, E element) {
+    checkPositionIndex(index);
+
+    if (index == size)
+        linkLast(element);
+    else
+        linkBefore(element, node(index));
+}
+
+/**
+ * Inserts element e before non-null Node succ.
+ */
+void linkBefore(E e, Node<E> succ) {
+    // assert succ != null;
+    final Node<E> pred = succ.prev;
+    final Node<E> newNode = new Node<>(pred, e, succ);
+    succ.prev = newNode;
+    if (pred == null)
+        first = newNode;
+    else
+        pred.next = newNode;
+    size++;
+    modCount++;
+}
+```
+
+#### 代码解析
+
+```auto
+1、addFirst插入到头结点，会调运linkFirst这个函数；
+2、addLast插入元素到尾部，会调运linkLast这个函数；
+3、add(int index, E element）插入元素到特定的位置，最终调运linkBefore这个函数；将元素插入到当前位置前驱！
+```
+
+### 4、数据迭代
+
+#### 代码片段
+
+```java
+    /**
+     * Returns a list-iterator of the elements in this list (in proper
+     * sequence), starting at the specified position in the list.
+     * Obeys the general contract of {@code List.listIterator(int)}.<p>
+     *
+     * The list-iterator is <i>fail-fast</i>: if the list is structurally
+     * modified at any time after the Iterator is created, in any way except
+     * through the list-iterator's own {@code remove} or {@code add}
+     * methods, the list-iterator will throw a
+     * {@code ConcurrentModificationException}.  Thus, in the face of
+     * concurrent modification, the iterator fails quickly and cleanly, rather
+     * than risking arbitrary, non-deterministic behavior at an undetermined
+     * time in the future.
+     *
+     * @param index index of the first element to be returned from the
+     *              list-iterator (by a call to {@code next})
+     * @return a ListIterator of the elements in this list (in proper
+     *         sequence), starting at the specified position in the list
+     * @throws IndexOutOfBoundsException {@inheritDoc}
+     * @see List#listIterator(int)
+     */
+    public ListIterator<E> listIterator(int index) {
+        checkPositionIndex(index);
+        return new ListItr(index);
+    }
+        private class ListItr implements ListIterator<E> {
+        private Node<E> lastReturned;
+        private Node<E> next;
+        private int nextIndex;
+        private int expectedModCount = modCount;
+
+        ListItr(int index) {
+            // assert isPositionIndex(index);
+            next = (index == size) ? null : node(index);
+            nextIndex = index;
+        }
+
+        public boolean hasNext() {
+            return nextIndex < size;
+        }
+
+        public E next() {
+            checkForComodification();
+            if (!hasNext())
+                throw new NoSuchElementException();
+
+            lastReturned = next;
+            next = next.next;
+            nextIndex++;
+            return lastReturned.item;
+        }
+
+        public boolean hasPrevious() {
+            return nextIndex > 0;
+        }
+
+        public E previous() {
+            checkForComodification();
+            if (!hasPrevious())
+                throw new NoSuchElementException();
+
+            lastReturned = next = (next == null) ? last : next.prev;
+            nextIndex--;
+            return lastReturned.item;
+        }
+
+        public int nextIndex() {
+            return nextIndex;
+        }
+
+        public int previousIndex() {
+            return nextIndex - 1;
+        }
+
+        public void remove() {
+            checkForComodification();
+            if (lastReturned == null)
+                throw new IllegalStateException();
+
+            Node<E> lastNext = lastReturned.next;
+            unlink(lastReturned);
+            if (next == lastReturned)
+                next = lastNext;
+            else
+                nextIndex--;
+            lastReturned = null;
+            expectedModCount++;
+        }
+
+        public void set(E e) {
+            if (lastReturned == null)
+                throw new IllegalStateException();
+            checkForComodification();
+            lastReturned.item = e;
+        }
+
+        public void add(E e) {
+            checkForComodification();
+            lastReturned = null;
+            if (next == null)
+                linkLast(e);
+            else
+                linkBefore(e, next);
+            nextIndex++;
+            expectedModCount++;
+        }
+
+        public void forEachRemaining(Consumer<? super E> action) {
+            Objects.requireNonNull(action);
+            while (modCount == expectedModCount && nextIndex < size) {
+                action.accept(next.item);
+                lastReturned = next;
+                next = next.next;
+                nextIndex++;
+            }
+            checkForComodification();
+        }
+
+        final void checkForComodification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
+    }
+    
+        /**
+     * Adapter to provide descending iterators via ListItr.previous
+     */
+    private class DescendingIterator implements Iterator<E> {
+        private final ListItr itr = new ListItr(size());
+        public boolean hasNext() {
+            return itr.hasPrevious();
+        }
+        public E next() {
+            return itr.previous();
+        }
+        public void remove() {
+            itr.remove();
+        }
+    }
+```
+
+#### 代码解析
+
+```auto
+1、listIterator返回一个遍历当前数据的列表迭代器！
+2、listIterator(int index)返回某个元素开始的迭代器！
+3、DescendingIterator是创建一个listIterator，位置是最后一个；可以支持倒叙操作数据
+
 ```
 
 
