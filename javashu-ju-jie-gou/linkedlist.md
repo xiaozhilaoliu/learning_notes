@@ -77,5 +77,7 @@ private static class Node<E> {
 3、节点中的item是每个元素item的引用对象
 ```
 
+### 3、数据元素操作
+
 
 
