@@ -11,7 +11,7 @@ LinkedList是一个继承于AbstractSequentialList的双向列表；它也可以
 
 ### 1、类的继承关系
 
-1. 代码片段
+#### 代码片段
 
 ```java
 public class LinkedList<E>
@@ -42,13 +42,14 @@ public Object clone() {
 }
 ```
 
-1. 
-```
-1、实现AbstractSequentialList，支持队列的操作；
-2、实现Deque接口，支持双端队列的操作
-3、实现Cloneable支持，支持clone操作;通过代码，可以知道，clone是进行的浅拷贝；
-4、实现Serializable，支持序列化的操作！
-```
+#### 代码解析
+
+1. ```
+   1、实现AbstractSequentialList，支持队列的操作；
+   2、实现Deque接口，支持双端队列的操作
+   3、实现Cloneable支持，支持clone操作;通过代码，可以知道，clone是进行的浅拷贝；
+   4、实现Serializable，支持序列化的操作！
+   ```
 
 
 
