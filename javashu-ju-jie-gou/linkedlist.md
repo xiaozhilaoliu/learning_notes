@@ -9,7 +9,7 @@ LinkedList是一个继承于AbstractSequentialList的双向列表；它也可以
 
 ## 源码分析
 
-1. 类的继承关系
+### 类的继承关系
 
 ```java
 public class LinkedList<E>
@@ -18,6 +18,4 @@ public class LinkedList<E>
 ```
 
 实现AbstractSequentialList，支持队列的操作；实现Deque接口，支持双端队列的操作
-
-
 
