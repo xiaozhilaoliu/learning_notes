@@ -74,6 +74,7 @@ private static class Node<E> {
 ```auto
 1、这个类是LinkedList的一个静态内部类;
 2、这个类有一个前驱，也有后驱，是一个双向列表
+3、节点中的item是每个元素item的引用对象
 ```
 
 
