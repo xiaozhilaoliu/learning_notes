@@ -303,7 +303,7 @@ void linkBefore(E e, Node<E> succ) {
                 throw new ConcurrentModificationException();
         }
     }
-    
+
         /**
      * Adapter to provide descending iterators via ListItr.previous
      */
@@ -326,8 +326,7 @@ void linkBefore(E e, Node<E> succ) {
 ```auto
 1、listIterator返回一个遍历当前数据的列表迭代器！
 2、listIterator(int index)返回某个元素开始的迭代器！
-3、DescendingIterator是创建一个listIterator，位置是最后一个；可以支持倒叙操作数据
-
+3、DescendingIterator是创建一个listIterator，位置是最后一个；可以支持倒序操作数据
 ```
 
 
