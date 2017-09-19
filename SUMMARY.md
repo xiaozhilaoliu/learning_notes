@@ -6,6 +6,8 @@
     * [LinkedList](javashu-ju-jie-gou/linkedlist.md)
 * 技术笔记
   * java数据结构
+    * LinkedHashMap
+    * LinkedList
 
 
 
