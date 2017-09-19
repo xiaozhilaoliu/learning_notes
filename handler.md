@@ -77,5 +77,27 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
     final Thread mThread;                                                 //当前线程
 ```
 
+### 四、Looper关键函数
+
+```java
+ //每个线程都需要调运这个函数，来创建一个Looper对象。冰倩存储为当前线程对象
+  private static void prepare(boolean quitAllowed) {
+        if (sThreadLocal.get() != null) {
+            throw new RuntimeException("Only one Looper may be created per thread");
+        }
+        sThreadLocal.set(new Looper(quitAllowed));
+    }
+ //ActivityThread的main函数中调用，创建主线程关联的looper
+  public static void prepareMainLooper() {
+        prepare(false);
+        synchronized (Looper.class) {
+            if (sMainLooper != null) {
+                throw new IllegalStateException("The main Looper has already been prepared.");
+            }
+            sMainLooper = myLooper();
+        }
+    }
+```
+
 
 
