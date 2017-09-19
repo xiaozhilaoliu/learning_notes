@@ -5,6 +5,7 @@
     * [LinkedHashMap](javashu-ju-jie-gou/linkedhashmap.md)
     * [LinkedList](javashu-ju-jie-gou/linkedlist.md)
 * 技术笔记
+  * java数据结构
 
 
 
