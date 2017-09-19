@@ -9,8 +9,8 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
 ```java
     final Looper mLooper;               //用于轮询消息
     final MessageQueue mQueue;          //消息队列
-    final Callback mCallback;
-    final boolean mAsynchronous;
+    final Callback mCallback;           //消息处理回调
+    final boolean mAsynchronous;        //消息发送是否阻塞
 ```
 
 
