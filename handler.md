@@ -52,8 +52,8 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
         mCallback = callback;
         mAsynchronous = async;
     }
-    
-        public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
+
+    public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
         MessageQueue queue = mQueue;
         if (queue == null) {
             RuntimeException e = new RuntimeException(
