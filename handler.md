@@ -66,5 +66,16 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
     }
 ```
 
+### 三、Looper的关键字段
+
+```java
+    // sThreadLocal.get() will return null unless you've called prepare().
+    static final ThreadLocal<Looper> sThreadLocal = new ThreadLocal<Looper>();    //当前线程存储对象，唯一
+    private static Looper sMainLooper;  // guarded by Looper.class      //主线程对象
+
+    final MessageQueue mQueue;
+    final Thread mThread;
+```
+
 
 
