@@ -13,7 +13,7 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
     final boolean mAsynchronous;        //消息发送是否阻塞
 ```
 
-### 二、关键函数
+### 二、Handler关键函数
 
 ```java
     /**
