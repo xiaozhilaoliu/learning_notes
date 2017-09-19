@@ -31,8 +31,8 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
             handleMessage(msg);
         }
     }
-    
-    //侯建函数中，获取当前线程的mLooper对象
+
+    //构建函数中，获取当前线程的mLooper对象
       public Handler(Callback callback, boolean async) {
         if (FIND_POTENTIAL_LEAKS) {
             final Class<? extends Handler> klass = getClass();
