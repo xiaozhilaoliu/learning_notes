@@ -98,6 +98,12 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
         }
     }
     
+    //消息轮续器构造函数，创建为消息队列
+   private Looper(boolean quitAllowed) {
+        mQueue = new MessageQueue(quitAllowed);
+        mThread = Thread.currentThread();
+    }
+
   //开始轮询调运消息队列
    public static void loop() {
         final Looper me = myLooper();
@@ -130,7 +136,7 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
                 Trace.traceBegin(traceTag, msg.target.getTraceName(msg));
             }
             try {
-                msg.target.dispatchMessage(msg);
+                msg.target.dispatchMessage(msg);    //交给handler去处理消息
             } finally {
                 if (traceTag != 0) {
                     Trace.traceEnd(traceTag);
