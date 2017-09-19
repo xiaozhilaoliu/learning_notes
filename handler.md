@@ -166,8 +166,6 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
 ### 五、MessageQueue源码解析
 
 ```java
-
-    
    //获取消息下一个消息        
     Message next() {
         // Return here if the message loop has already quit and been disposed.
@@ -274,7 +272,7 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
             nextPollTimeoutMillis = 0;
         }
     }
-    
+
     //消息添加到消息队列中
     boolean enqueueMessage(Message msg, long when) {
         if (msg.target == null) {
@@ -328,6 +326,51 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
             }
         }
         return true;
+    }
+```
+
+### 六、ActivityThread函数
+
+```java
+    public static void main(String[] args) {
+        Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, "ActivityThreadMain");
+        SamplingProfilerIntegration.start();
+
+        // CloseGuard defaults to true and can be quite spammy.  We
+        // disable it here, but selectively enable it later (via
+        // StrictMode) on debug builds, but using DropBox, not logs.
+        CloseGuard.setEnabled(false);
+
+        Environment.initForCurrentUser();
+
+        // Set the reporter for event logging in libcore
+        EventLogger.setReporter(new EventLoggingReporter());
+
+        // Make sure TrustedCertificateStore looks in the right place for CA certificates
+        final File configDir = Environment.getUserConfigDirectory(UserHandle.myUserId());
+        TrustedCertificateStore.setDefaultUserDirectory(configDir);
+
+        Process.setArgV0("<pre-initialized>");
+
+        Looper.prepareMainLooper();    //创建主线程looper
+
+        ActivityThread thread = new ActivityThread();
+        thread.attach(false);
+
+        if (sMainThreadHandler == null) {
+            sMainThreadHandler = thread.getHandler();
+        }
+
+        if (false) {
+            Looper.myLooper().setMessageLogging(new
+                    LogPrinter(Log.DEBUG, "ActivityThread"));
+        }
+
+        // End of event ActivityThreadMain.
+        Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);
+        Looper.loop();       //开始全局轮询消息
+
+        throw new RuntimeException("Main thread loop unexpectedly exited");
     }
 ```
 
