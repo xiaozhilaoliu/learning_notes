@@ -295,7 +295,7 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
             msg.when = when;
             Message p = mMessages;
             boolean needWake;
-            if (p == null || when == 0 || when < p.when) {
+            if (p == null || when == 0 || when < p.when) {  //消息加到当前消息的头部
                 // New head, wake up the event queue if blocked.
                 msg.next = p;
                 mMessages = msg;
@@ -317,7 +317,7 @@ Handler是android提供线程通信框架，其中涉及到的主要类有Handle
                     }
                 }
                 msg.next = p; // invariant: p == prev.next
-                prev.next = msg;
+                prev.next = msg;  //按照时间插入消息列表中
             }
 
             // We can assume mPtr != 0 because mQuitting is false.
