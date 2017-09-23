@@ -1,19 +1,30 @@
-#MultiDex原理
+# MultiDex原理
+
 ## 一、Android中常见的类加载器
 
 ### 1、PathClassLoader
-	加载/data/app目录下的apk文件，从这个目录可以看出，PathClassLoader主要用来加载已经安装了apk。
-   
+
+```
+加载/data/app目录下的apk文件，从这个目录可以看出，PathClassLoader主要用来加载已经安装了apk。
+```
+
 ### 2、DexClassLoader
-	加载路径需要在创建DexClassLoader时传入，可以加载任何路径下下的apk/dex/*.jar；插件化的原理就在此	
+
+```
+加载路径需要在创建DexClassLoader时传入，可以加载任何路径下下的apk/dex/*.jar；插件化的原理就在此    
+```
+
 ## 二、实现动态加载dex的原理
+
 * 需要将dex拷贝到系统的dex文件目录下！
 * 创建odex的文件目录，用来存储优化后的文件
-* 将DexClassLoader插入到PathClassLoader和BootstrapClassloader中间，这个服务副委托模式！apk加载类的顺序，PathClassloader->DexClassloader->bootstrapClassloader；
-	* 插入方法：在application中，创建一个DexClassLoader，他的parent为当前PathClassloader的父（bootstrapClassloader） ，然后再通过反射，将PathClassLoader的父设置为DexClassLoader;
+* 将DexClassLoader插入到PathClassLoader和BootstrapClassloader中间，这个服务副委托模式！apk加载类的顺序，PathClassloader-&gt;DexClassloader-&gt;bootstrapClassloader；
+  * 插入方法：在application中，创建一个DexClassLoader，他的parent为当前PathClassloader的父（bootstrapClassloader） ，然后再通过反射，将PathClassLoader的父设置为DexClassLoader;
 
 ## MultiDex源码分析
+
 ### application调运的代码
+
 ```java
 public static void install(Context context) {
     Log.i("MultiDex", "Installing application");
@@ -39,7 +50,9 @@ public static void install(Context context) {
     }
 }
 ```
+
 ### 动态加载apk文件
+
 ```java
 private static void doInstallation(Context mainContext, File sourceApk, File dataDir, String secondaryFolderName, String prefsKeyPrefix) throws IOException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InvocationTargetException, NoSuchMethodException {
     Set var5 = installedApk;   //已经加载的文件集合
@@ -77,6 +90,7 @@ private static void doInstallation(Context mainContext, File sourceApk, File dat
 ```
 
 ### 获取需要动态加载的二级文件列表
+
 ```java
 static List<? extends File> load(Context context, File sourceApk, File dexDir, String prefsKeyPrefix, boolean forceReload) throws IOException {
     Log.i("MultiDex", "MultiDexExtractor.load(" + sourceApk.getPath() + ", " + forceReload + ", " + prefsKeyPrefix + ")");
@@ -133,6 +147,7 @@ static List<? extends File> load(Context context, File sourceApk, File dexDir, S
 ```
 
 ### 安装二级目录
+
 ```java
 private static void installSecondaryDexes(ClassLoader loader, File dexDir, List<? extends File> files) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InvocationTargetException, NoSuchMethodException, IOException {
     if(!files.isEmpty()) {
@@ -239,8 +254,8 @@ private static final class V19 {
 ```
 
 ### BaseDexClassLoader
-```java
 
+```java
 public class BaseDexClassLoader extends ClassLoader {
    private final DexPathList pathList;  //这个字段存放dex的文件信息
 }
@@ -262,3 +277,6 @@ public class BaseDexClassLoader extends ClassLoader {
     private final File[] nativeLibraryDirectories;
  }
 ```
+
+
+
